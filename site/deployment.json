@@ -1,0 +1,23 @@
+{
+  "provider": "vercel",
+  "url": "https://clyf-sleeve.vercel.app",
+  "projectId": "prj_cKJd5f1iKfFuTic3vFxRvSJyWVmm",
+  "projectName": "clyf-sleeve",
+  "scope": "kuzezes-projects",
+  "deploymentId": "dpl_7wW7sReUwxqL6i3DNy6PV7gpoyxf",
+  "deploymentUrl": "https://clyf-sleeve-hv3wnmque-kuzezes-projects.vercel.app",
+  "inspectorUrl": "https://vercel.com/kuzezes-projects/clyf-sleeve/7wW7sReUwxqL6i3DNy6PV7gpoyxf",
+  "target": "production",
+  "audience": "public",
+  "vercelAuthentication": false,
+  "htmlSha256": "919ccd9fcfa8a58925aa2b165e6d3c301244cba4ef66e9f53b02ef8588f185d3",
+  "deployedAt": "2026-10-03T20:43:51.292Z",
+  "previousDeploymentId": "dpl_GNNtfq2pzdrStaXQqHAFaHy6ErvJ",
+  "video": {
+    "path": "assets/video/clyf-demo.mp4",
+    "bytes": 23712025,
+    "duration": 58.644,
+    "sha256": "5d1afc780474eea2814b36f8281558dde13d840110310c6b248cde763f8557ef"
+  },
+  "deploymentProtection": []
+}

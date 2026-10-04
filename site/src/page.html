@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="CLYF: a forearm sleeve concept that makes grip effort visible. Explore the 3D design, real muscle recordings, and an experimental forearm battery.">
+  <title>CLYF — Find your rhythm.</title>
+  <style>/*__STYLES__*/</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav">
+    <a class="wordmark" href="#main" aria-label="CLYF home">clyf</a>
+    <span class="nav-product">The intelligent sleeve</span>
+    <nav aria-label="Main navigation"><a href="#idea">The idea</a><a href="#signal">Real signal</a><a href="#experience" class="nav-cta">Try the feeling</a></nav>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-type" aria-hidden="true"><span>Smart</span><span>Sleeve</span></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Meet CLYF Sleeve</p>
+        <h1 id="hero-title">The intelligent sleeve.</h1>
+        <p class="hero-lede">See your effort. Find your rhythm.</p>
+        <div class="hero-actions"><button class="primary" id="explore-sleeve">Look inside</button><a class="text-link watch-link" href="#demo"><span aria-hidden="true">▷</span> Watch the demo <span class="watch-duration">1 min</span></a></div>
+        <p class="hero-footnote">Wearable concept · BigRed//Hacks 2026</p>
+      </div>
+      <figure class="product" id="product">
+        <div class="product-label"><span>01 / THE SLEEVE</span><span>CONCEPT DESIGN</span></div>
+        <div id="viewer" tabindex="0" role="region" aria-label="Interactive sleeve model. Drag or use arrow keys to rotate. Use plus or minus to zoom."><div id="viewer-loading">Preparing your view…</div></div>
+        <div class="view-hint" id="view-hint">Drag to explore · scroll to zoom</div>
+        <div class="viewer-toolbar">
+          <div class="segmented" role="group" aria-label="3D model view"><button data-view="surface" aria-pressed="true">Sleeve</button><button data-view="inside" aria-pressed="false">Inside</button><button data-view="exploded" aria-pressed="false">Exploded</button></div>
+          <button class="reset-view" id="reset-view" aria-label="Reset 3D view">Reset</button>
+        </div>
+        <div class="component-detail" id="component-detail" hidden>
+          <div class="component-tabs" role="group" aria-label="Explore the components"><button data-component="emg" aria-pressed="true">01 · Muscle</button><button data-component="fsr" aria-pressed="false">02 · Pressure</button><button data-component="uno" aria-pressed="false">03 · Arduino</button></div>
+          <p id="component-copy" aria-live="polite"></p>
+        </div>
+        <figcaption id="model-caption">White textile. Technology on the inside.<span>Illustrative layout, not manufacturing CAD.</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="prototype-demo section" id="demo" aria-labelledby="prototype-title">
+      <div class="prototype-copy">
+        <p class="eyebrow">From an idea to a working prototype</p>
+        <h2 id="prototype-title">See it.<br> Grip it.<br><span>Watch it respond.</span></h2>
+        <p>A sleeve. Two sensors. One small experiment in making effort visible.</p>
+        <p>Watch the prototype in action—from a squeeze of the hand to the feedback on screen.</p>
+        <div class="prototype-meta"><span>FILMED DEMONSTRATION</span><span>01 MIN · SOUND ON</span></div>
+        <p class="prototype-note" id="video-note">Battery level is a prototype estimate; recovery thresholds are not yet validated.</p>
+      </div>
+      <figure class="prototype-film">
+        <div class="film-frame">
+          <video id="prototype-video" controls playsinline preload="none" crossorigin="anonymous" poster="__DEMO_POSTER__" aria-label="CLYF prototype introduction and grip demonstration" aria-describedby="video-note">
+            <source src="assets/video/clyf-demo.mp4" type="video/mp4">
+            <track kind="captions" src="assets/video/clyf-demo.en.vtt" srclang="en" label="English" default>
+            Your browser does not support embedded video. <a href="assets/video/clyf-demo.mp4">Watch the demo video</a>.
+          </video>
+          <button class="film-cover" id="play-prototype" aria-label="Play the prototype demo"><span class="film-play" aria-hidden="true">▶</span><span class="film-cover-label">Meet the prototype <small>0:59</small></span></button>
+        </div>
+        <figcaption>Built at BigRed//Hacks 2026. Demonstrated by its creator.</figcaption>
+        <p class="video-error" id="video-error" hidden>Video couldn’t play here. <a href="assets/video/clyf-demo.mp4">Open the video directly ↗</a></p>
+      </figure>
+    </section>
+
+    <div class="chapter-rule"><span>Less guessing. More understanding.</span><span>GRIP / REST / REPEAT</span></div>
+
+    <section class="story section" id="idea" aria-labelledby="idea-title">
+      <figure class="story-image"><img src="__CLIMBER_IMAGE__" alt="Concept image of a climber resting a white-sleeved forearm on their knee between attempts" width="1536" height="1024" loading="lazy"><figcaption>WEARABLE VISION · AI-GENERATED CONCEPT</figcaption></figure>
+      <div class="story-copy"><p class="eyebrow">Between attempts</p><h2 id="idea-title">You can see<br>the next hold.<br> <span>What about<br> your effort?</span></h2><p>The route is right in front of you. What’s happening in your forearm is harder to see.</p><p>CLYF brings grip and rest into view. A simple way to explore your effort—and the pauses between it.</p></div>
+    </section>
+
+    <section class="sensing section" aria-labelledby="sensing-title">
+      <div class="section-heading"><p class="eyebrow">Small signals. A bigger picture.</p><h2 id="sensing-title">Sense. Understand.<br> <span>Find your rhythm.</span></h2><p>Two sensor inputs. One clear view of your session.</p></div>
+      <div class="sensing-grid">
+        <article><span class="feature-number">01</span><h3>Listen to the muscle.</h3><p>sEMG picks up electrical activity during a grip. A relaxed baseline and a strong squeeze give that signal context.</p><span class="spec">MyoWare 2.0 · ENV on A0</span></article>
+        <article><span class="feature-number">02</span><h3>Notice the contact.</h3><p>A small force-sensitive resistor responds to pressure at its contact point. It adds a second input to the experiment.</p><span class="spec">FSR 400 · pressure on A1</span></article>
+        <article><span class="feature-number">03</span><h3>Bring it together.</h3><p>Arduino UNO Q samples both channels at 100 Hz and sends them to the dashboard. The current controller sits outside the sleeve.</p><span class="spec">Arduino UNO Q · two channels</span></article>
+      </div>
+    </section>
+
+    <section class="signal-section" id="signal" aria-labelledby="signal-title">
+      <div class="section signal-inner">
+        <div class="signal-heading"><div><p class="eyebrow">The prototype, in its own words</p><h2 id="signal-title">Real muscle.<br> <span>Real signal.</span></h2></div><p>Three squeezes. Three releases.<br>This is what we recorded—not a generated waveform.</p></div>
+        <div class="recording-card">
+          <div class="recording-top"><span class="badge recorded">RECORDED / OCT 03, 2026</span><span class="recording-meta">MyoWare ENV · sampled at 100 Hz</span></div>
+          <div class="recording-readout"><div><span class="readout-label">Selected second · EMG envelope</span><div class="voltage"><span id="rec-value">1.72</span><small>V</small></div></div><div class="sample-state"><b id="rec-state">Lower signal</b><span id="rec-time">00 s / 18 s</span></div></div>
+          <div class="chart-frame"><canvas id="recorded-chart" role="img" aria-label="Recorded EMG envelope: three high-signal squeeze intervals around 2.7 volts, with lower intervals around 1 volt. A table of exact values is available below."></canvas></div>
+          <div class="recording-controls"><button id="replay" class="secondary" aria-pressed="false">Replay recording</button><label class="scrub-label" for="recorded-time">Explore a second<input id="recorded-time" type="range" min="0" max="18" step="1" value="0"></label><button id="download-data" class="text-link">Download data <span aria-hidden="true">↓</span></button></div>
+          <p class="data-caption">19 one-second summaries from a 60-second capture. Line: mean. Band: min–max. Shaded intervals: mean above 2 V. Replay follows these recorded summaries.</p>
+          <details class="data-details"><summary>View the exact values & recording notes</summary><p>Original capture seconds 30–48, recorded on 3 October 2026. These are envelope voltage summaries, not raw EMG, grip force, or a fatigue measurement.</p><div class="table-wrap"><table><caption>Recorded envelope, volts</caption><thead><tr><th scope="col">Second</th><th scope="col">Mean</th><th scope="col">Min</th><th scope="col">Max</th></tr></thead><tbody id="recorded-table"></tbody></table></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience section" id="experience" aria-labelledby="experience-title">
+      <div class="experience-copy"><p class="eyebrow">A familiar way to read effort</p><h2 id="experience-title">What if your<br>forearm had<br> <span>a battery?</span></h2><p>Grip, and the model drains.<br>Let go, and it refills.</p><p class="quiet">An experimental way to visualize effort and rest. The percentage and countdown are model estimates, not a measurement of your remaining strength.</p></div>
+      <div class="battery-demo">
+        <div class="demo-top"><span>FOREARM RESERVE</span><span class="badge simulated">SIMULATED</span></div>
+        <div class="battery-value"><span id="reserve">100</span><span>%</span></div>
+        <progress id="reserve-meter" max="100" value="100" aria-label="Simulated forearm reserve">100%</progress>
+        <div class="demo-status"><h3 id="demo-headline" aria-live="polite">Ready for another try.</h3><p id="demo-subline">Hold the button. Release to rest.</p></div>
+        <button class="grip-button" id="grip">Hold to grip</button>
+        <div class="demo-actions"><button id="auto-demo" aria-pressed="false">Play an example</button><button id="reset-demo">Start over</button></div>
+        <details class="demo-settings"><summary>Adjust the model</summary><label for="effort">Grip effort <output id="effort-value">70%</output><input id="effort" type="range" min="30" max="100" step="5" value="70"></label><label for="tension">Tension at rest <output id="tension-value">4%</output><input id="tension" type="range" min="0" max="30" step="1" value="4"></label><p>Inputs are relative to a calibrated grip range. Demo defaults: critical load 30%, capacity 800 %·s, recovery time constant 20 s; “ready” at 80%. Not fitted to an individual climber.</p></details>
+        <p class="demo-disclosure">Interactive model · no live sensor connection</p>
+      </div>
+    </section>
+
+    <section class="material section" aria-labelledby="material-title">
+      <img src="__TEXTILE_IMAGE__" width="1536" height="1024" alt="Concept macro image of soft white knit fabric and a stitched sleeve cuff" loading="lazy">
+      <div class="material-copy"><p class="eyebrow">The wearable vision</p><h2 id="material-title">Quiet on the outside.<br> <span>Curious on the inside.</span></h2><p>A simple textile exterior. A place for sensing underneath.<br>That’s the direction. The bench prototype is the beginning.</p></div><span class="material-caption">MATERIAL STUDY · AI-GENERATED CONCEPT</span>
+    </section>
+
+    <section class="honesty section" aria-labelledby="honesty-title"><div><p class="eyebrow">Built this weekend. Still exploring.</p><h2 id="honesty-title">A real start.<br> <span>A clear next step.</span></h2></div><div class="honesty-items"><div><span class="small-label">WORKING NOW</span><p>Sensor acquisition, a live dashboard, grip calibration, and recorded muscle signals.</p></div><div><span class="small-label">DESIGN & MODEL</span><p>The integrated sleeve is a concept. The battery is an experimental model. Neither proves a recovery time.</p></div><div><span class="small-label">UP NEXT</span><p>Refine the sensor placement, calibrate per climber, and test whether the feedback is useful between real attempts.</p></div></div></section>
+  </main>
+  <footer><a href="#main" class="wordmark">clyf</a><p>Navigate your effort.<br> <span>BigRed//Hacks 2026</span></p><a href="#signal">Back to the evidence <span aria-hidden="true">↗</span></a></footer>
+  <script>/*__SCRIPT__*/</script>
+</body>
+</html>

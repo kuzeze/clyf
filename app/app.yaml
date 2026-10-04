@@ -1,0 +1,6 @@
+name: CLYF Sleeve
+icon: 🧗
+description: "Forearm sleeve: FSR contact and MyoWare sEMG envelope, streamed live to the browser"
+
+bricks:
+  - arduino:web_ui

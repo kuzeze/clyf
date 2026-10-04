@@ -1,0 +1,18 @@
+.DS_Store
+node_modules/
+
+# Build output and the deploy link for the site
+site/publish/
+
+# Large media: the full-res promo lives in media/ as a 720p copy, the filmed demo is served by
+# the live site (see README), and the concept PNGs ship as WebP
+promo/CLYF-promo.mp4
+promo/source/audio/*.wav
+promo/source/frames/
+site/assets/video/clyf-demo.mp4
+site/assets/*.png
+
+# Third-party reference screenshots used only during design
+site/reference/*.jpg
+site/reference/*.png
+site/reference/qa/reference-comparison.jpg

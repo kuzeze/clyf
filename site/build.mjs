@@ -1,0 +1,24 @@
+import { build } from 'esbuild';
+import { readFile, writeFile, mkdir, copyFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+const root=path.dirname(fileURLToPath(import.meta.url));
+const bundle=await build({entryPoints:[path.join(root,'src/app.js')],bundle:true,minify:true,format:'iife',write:false,legalComments:'inline',alias:{three:path.join(root,'vendor/three.module.js')},target:['es2020']});
+const image=async name=>'data:image/webp;base64,'+(await readFile(path.join(root,'assets',name))).toString('base64');
+let html=await readFile(path.join(root,'src/page.html'),'utf8');
+html=html.replace('/*__STYLES__*/',await readFile(path.join(root,'src/style.css'),'utf8'));
+html=html.replace('__CLIMBER_IMAGE__',await image('climber-rest-concept.webp')).replace('__TEXTILE_IMAGE__',await image('textile-detail-concept.webp'));
+html=html.replace('__DEMO_POSTER__',await image('video/clyf-demo-poster.webp'));
+html=html.replace('/*__SCRIPT__*/',()=>bundle.outputFiles[0].text.replace(/<\/script/gi,'<\\/script'));
+const license=await readFile(path.join(root,'vendor/THREE-LICENSE.txt'),'utf8');
+html=html.replace('</body>',`<!-- Three.js license\n${license}\n-->\n</body>`);
+await writeFile(path.join(root,'clyf-forearm-battery.html'),html);
+// A body-only alternative for Artifact publishers that supply the document wrapper.
+const style=html.match(/<style>[\s\S]*?<\/style>/)[0];
+const body=html.match(/<body>([\s\S]*)<\/body>/)[1].replaceAll('="assets/video/','="https://clyf-sleeve.vercel.app/assets/video/');
+await writeFile(path.join(root,'clyf-artifact-body.html'),style+'\n'+body);
+await mkdir(path.join(root,'publish/assets/video'),{recursive:true});
+await writeFile(path.join(root,'publish/index.html'),html);
+for(const file of ['clyf-demo.mp4','clyf-demo.en.vtt'])await copyFile(path.join(root,'assets/video',file),path.join(root,'publish/assets/video',file));
+await writeFile(path.join(root,'publish/vercel.json'),JSON.stringify({headers:[{source:'/assets/video/(.*)',headers:[{key:'Access-Control-Allow-Origin',value:'*'}]}]},null,2)+'\n');
+console.log(`Built HTML + Artifact body (${(Buffer.byteLength(html)/1024/1024).toFixed(2)} MB each); video and captions packaged separately in publish/.`);

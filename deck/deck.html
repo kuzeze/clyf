@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CLYF deck</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Commissioner:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  /* One page per slide, 1920x1080. Same look as the promo video: dark wall, mint = ready,
+     amber = draining, cyan = resting, pink = brand accent. */
+  :root { --bg:#070a0d; --panel:#0f151a; --line:#1e2a31; --ink:#eef3f5; --muted:#8d9aa2; --mint:#5cffc7; --amber:#ffb547; --cyan:#4fd8ff; --pink:#ff4f8b;
+          --display:"Big Shoulders Display", Impact, sans-serif; --body:"Commissioner", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace; }
+  @page { size: 1920px 1080px; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 110px 120px;
+           background: radial-gradient(900px 600px at 85% 15%, rgba(92,255,199,.07), transparent 70%), radial-gradient(800px 600px at 10% 95%, rgba(255,79,139,.06), transparent 70%), var(--bg); }
+  .slide::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.05) 2px, transparent 2.5px); background-size: 80px 80px; background-position: 40px 40px; pointer-events: none; }
+  .slide > * { position: relative; }
+  .eyebrow { font: 700 24px var(--mono); letter-spacing: 5px; color: var(--mint); text-transform: uppercase; }
+  h1, h2 { font-family: var(--display); font-weight: 900; text-transform: uppercase; margin: 0; line-height: .92; letter-spacing: .5px; }
+  h2 { font-size: 104px; margin-top: 22px; }
+  p { margin: 0; }
+  .lede { font-size: 34px; line-height: 1.4; color: var(--muted); max-width: 1180px; margin-top: 26px; }
+  .foot { position: absolute; left: 120px; right: 120px; bottom: 54px; display: flex; justify-content: space-between; font: 500 20px var(--mono); letter-spacing: 3px; color: #56636b; }
+  .mint { color: var(--mint); } .amber { color: var(--amber); } .cyan { color: var(--cyan); } .pink { color: var(--pink); }
+  .card { background: var(--panel); border: 2px solid var(--line); border-radius: 24px; padding: 34px 36px; }
+  .chip { display: inline-flex; align-items: center; gap: 12px; font: 700 22px var(--mono); letter-spacing: 3px; padding: 10px 20px; border-radius: 100px; border: 2px solid currentColor; }
+  .chip::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: currentColor; }
+  img { display: block; }
+
+  /* 1 title */
+  /* scaled from the top so the promo frame's own caption (bottom) falls outside the slide */
+  .title-art { position: absolute; right: 0; top: 0; width: 1150px; height: 1080px; object-fit: cover; object-position: 60% 50%; transform: scale(1.2); transform-origin: 70% 25%;
+               -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 35%); mask-image: linear-gradient(90deg, transparent 0%, #000 35%); }
+  .big-name { font-family: var(--display); font-weight: 900; font-size: 380px; line-height: .8; margin-top: 140px; }
+  .tagline { font-size: 52px; font-weight: 600; line-height: 1.2; margin-top: 40px; max-width: 900px; }
+  .team { margin-top: 70px; display: flex; gap: 60px; font-size: 30px; }
+  .team b { display: block; font: 700 20px var(--mono); letter-spacing: 4px; color: var(--muted); margin-bottom: 10px; }
+
+  /* 2 problem */
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 80px; }
+  .grid3 .card h3 { font: 900 52px/1 var(--display); text-transform: uppercase; margin: 0 0 20px; }
+  .grid3 .card p { font-size: 29px; line-height: 1.45; color: #c4ced3; }
+  .callout { margin-top: 70px; font-size: 44px; font-weight: 600; }
+
+  /* 3 solution */
+  .sol { display: grid; grid-template-columns: 1.05fr 1fr; gap: 70px; margin-top: 44px; align-items: start; }
+  .states { display: grid; gap: 22px; }
+  .state { display: grid; grid-template-columns: 300px 1fr; gap: 26px; align-items: center; padding: 24px 30px; border-radius: 20px; background: var(--panel); border: 2px solid var(--line); }
+  .state .chip { justify-self: start; }
+  .state p { font-size: 28px; line-height: 1.4; color: #c4ced3; }
+  .batts { display: grid; gap: 22px; }
+  .batt { position: relative; height: 196px; border-radius: 20px; overflow: hidden; border: 3px solid; }
+  .batt img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 45%; transform: scale(1.35); transform-origin: 30% 45%; }
+  .batt span { position: absolute; left: 20px; bottom: 16px; font: 700 22px var(--mono); letter-spacing: 3px; background: rgba(7,10,13,.8); padding: 8px 14px; border-radius: 10px; }
+
+  /* 4 demo */
+  .demo { display: grid; grid-template-columns: 380px 1fr; gap: 70px; margin-top: 44px; }
+  .portrait { width: 380px; height: 676px; object-fit: cover; border-radius: 26px; border: 2px solid var(--line); }
+  .chart { height: 600px; }
+  .chart svg { width: 100%; height: 100%; overflow: visible; }
+  .legend { display: flex; gap: 34px; margin-top: 18px; font: 500 22px var(--body); color: var(--muted); align-items: center; }
+  .legend i { display: inline-block; width: 26px; height: 16px; border-radius: 4px; margin-right: 10px; vertical-align: -2px; }
+
+  /* 5 architecture */
+  .pipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 60px; }
+  .stage { position: relative; padding: 0 28px 0 0; }
+  .stage .card { height: 380px; }
+  .stage:not(:last-child)::after { content: ""; position: absolute; right: 2px; top: 175px; border: 13px solid transparent; border-left: 20px solid var(--mint); }
+  .stage .num { font: 700 22px var(--mono); letter-spacing: 4px; color: var(--mint); }
+  .stage h3 { font: 900 50px/1 var(--display); text-transform: uppercase; margin: 14px 0 18px; }
+  .stage p { font-size: 25px; line-height: 1.45; color: #c4ced3; }
+  .stage .spec { margin-top: 18px; font: 500 20px/1.6 var(--mono); color: var(--muted); }
+  .stack { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 46px; }
+  .stack span { font: 700 22px var(--mono); letter-spacing: 1px; padding: 12px 20px; border: 2px solid var(--line); border-radius: 12px; background: var(--panel); }
+  .strip { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; object-fit: cover; object-position: 50% 60%; opacity: .5;
+           -webkit-mask-image: linear-gradient(0deg, #000, transparent); mask-image: linear-gradient(0deg, #000, transparent); }
+
+  /* 6 trust */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 56px; }
+  .two ul { margin: 18px 0 0; padding-left: 30px; display: grid; gap: 14px; font-size: 29px; line-height: 1.35; color: #c4ced3; }
+  .two h3 { font: 900 56px/1 var(--display); text-transform: uppercase; margin: 0; }
+  .hard { margin-top: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .hard div { border-top: 4px solid var(--pink); padding-top: 16px; font-size: 24px; line-height: 1.4; color: #c4ced3; }
+  .hard b { display: block; color: var(--ink); font-size: 26px; margin-bottom: 6px; }
+
+  /* 7, 8 impact and future */
+  .split { display: grid; grid-template-columns: 1fr 760px; gap: 80px; margin-top: 50px; align-items: center; }
+  .list { display: grid; gap: 30px; }
+  .list > div { display: grid; grid-template-columns: 70px 1fr; gap: 22px; align-items: start; }
+  .list .n { font: 900 60px/1 var(--display); color: var(--mint); }
+  .list h3 { font: 900 46px/1 var(--display); text-transform: uppercase; margin: 0 0 8px; }
+  .list p { font-size: 27px; line-height: 1.45; color: #c4ced3; }
+  .art { width: 760px; height: 560px; object-fit: cover; border-radius: 26px; border: 2px solid var(--line); }
+
+  /* 9 thanks */
+  .thanks { display: grid; place-items: center; text-align: center; height: 860px; }
+  .thanks .big-name { margin: 0; font-size: 300px; }
+</style>
+</head>
+<body>
+
+<!-- 1 · Title -->
+<section class="slide">
+  <img class="title-art" src="assets/open3d.jpg" alt="">
+  <div class="eyebrow">BigRed//Hacks 2026 · Theme: Navigation</div>
+  <div class="big-name">CLYF</div>
+  <p class="tagline">A forearm sleeve that tells climbers <span class="mint">when to climb again.</span></p>
+  <div class="team"><div><b>TEAM</b>Jeremy Li</div><div><b>BUILT WITH</b>Arduino UNO Q · MyoWare 2.0 sEMG</div></div>
+</section>
+
+<!-- 2 · Problem -->
+<section class="slide">
+  <div class="eyebrow">The problem</div>
+  <h2>Climbers guess<br>how long to rest.</h2>
+  <div class="grid3">
+    <div class="card"><h3 class="amber">The pump</h3><p>On a hard route the forearms give out first. Grip fades, and the climb ends.</p></div>
+    <div class="card"><h3 class="cyan">The shake-out</h3><p>Hanging off a jug mid-route, you rest with no idea when you have actually recovered.</p></div>
+    <div class="card"><h3 class="pink">The cost</h3><p>Rest too little and you fall off the next move. Rest too long and you burn the session.</p></div>
+  </div>
+  <p class="callout">Maps give drivers an ETA. Climbers get <span class="pink">guesswork.</span></p>
+  <div class="foot"><span>CLYF</span><span>02</span></div>
+</section>
+
+<!-- 3 · Solution -->
+<section class="slide">
+  <div class="eyebrow">Our solution</div>
+  <h2>A forearm battery<br><span class="mint">with an ETA.</span></h2>
+  <div class="sol">
+    <div class="states">
+      <div class="state"><span class="chip amber">GRIPPING</span><p>Effort above a sustainable level drains the battery.</p></div>
+      <div class="state"><span class="chip cyan">RESTING</span><p>It recharges, with a countdown: <b>“Ready in 12 s”</b>.</p></div>
+      <div class="state"><span class="chip" style="color:#c4ced3">RELAX FULLY</span><p>EMG sees a tense forearm and slows the recharge.</p></div>
+      <div class="state"><span class="chip mint">READY</span><p>At 80% it glows and chimes: <b>climb on</b>.</p></div>
+    </div>
+    <div class="batts">
+      <div class="batt" style="border-color:var(--mint)"><img src="assets/batt86.jpg" alt=""><span class="mint">FULL · 85</span></div>
+      <div class="batt" style="border-color:var(--amber)"><img src="assets/batt52.jpg" alt=""><span class="amber">AFTER GRIPPING · 53</span></div>
+      <div class="batt" style="border-color:var(--mint)"><img src="assets/batt80.jpg" alt=""><span class="mint">AFTER RESTING · 81 · READY</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>CLYF · screenshots from the live dashboard during the demo</span><span>03</span></div>
+</section>
+
+<!-- 4 · Demo -->
+<section class="slide">
+  <div class="eyebrow">Demo · one real session</div>
+  <h2 style="font-size:92px">Grip drains it. <span class="cyan">Rest brings it back.</span></h2>
+  <div class="demo">
+    <img class="portrait" src="assets/real_grip.jpg" alt="Wearing the sleeve and squeezing a grip trainer">
+    <div>
+      <div class="chart"><svg id="timeline" viewBox="0 0 1200 600"></svg></div>
+      <div class="legend"><span><i style="background:rgba(255,181,71,.35)"></i>gripping</span><span><i style="background:rgba(79,216,255,.25)"></i>resting</span><span><i style="background:none;border-top:3px dashed var(--mint);height:0;width:30px"></i>ready line, 80%</span><span>battery read off the dashboard, once per second</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>CLYF · full 60 s video on Devpost</span><span>04</span></div>
+</section>
+
+<!-- 5 · How it works -->
+<section class="slide">
+  <div class="eyebrow">How we built it</div>
+  <h2>From muscle to minutes.</h2>
+  <div class="pipe">
+    <div class="stage"><div class="card"><div class="num">01 · SENSE</div><h3>The sleeve</h3><p>Surface EMG on the finger flexors, plus a force sensor on the hold.</p><div class="spec">MyoWare 2.0 + cable shield<br>FSR, 4 mm</div></div></div>
+    <div class="stage"><div class="card"><div class="num">02 · SAMPLE</div><h3>Arduino UNO Q</h3><p>The STM32 reads both channels on a fixed clock and streams every sample.</p><div class="spec">100 Hz · 12-bit ADC<br>0 dropped samples</div></div></div>
+    <div class="stage"><div class="card"><div class="num">03 · CLEAN</div><h3>Linux side</h3><p>Python on the board relays to the laptop over USB. No Wi-Fi needed.</p><div class="spec">Bridge RPC · Socket.IO<br>ADB port forward</div></div></div>
+    <div class="stage"><div class="card"><div class="num">04 · NAVIGATE</div><h3>Dashboard</h3><p>Auto-calibrated %MVC, bad-signal detection, and the battery model.</p><div class="spec">JavaScript · Canvas<br>ready at 80% · τ = 20 s</div></div></div>
+  </div>
+  <div class="stack"><span>Arduino UNO Q</span><span>STM32 sketch</span><span>MyoWare 2.0</span><span>FSR 400</span><span>Python</span><span>Socket.IO</span><span>JavaScript</span><span>HTML5 Canvas</span><span>ADB</span><span>three.js (video)</span></div>
+</section>
+
+<!-- 6 · Trust + challenges -->
+<section class="slide">
+  <div class="eyebrow">What to trust</div>
+  <h2>Measured, then modelled.</h2>
+  <div class="two">
+    <div class="card"><h3>Measured</h3><ul><li>Muscle effort, as % of your own max grip</li><li>Hand on the hold</li><li>How long each grip and rest lasted</li><li>How relaxed the forearm is while resting</li></ul></div>
+    <div class="card" style="border-color:rgba(255,79,139,.4)"><h3 class="pink">Estimated</h3><ul><li>Battery level and “ready in” countdown, from a W′-balance style model</li><li>Labelled as an estimate on screen</li><li>Demo constants, not yet fitted per climber</li></ul></div>
+  </div>
+  <div class="hard">
+    <div><b>Spiky EMG</b>Calibrating from peaks made hard grips read 30–40%. Per-second averages fixed it.</div>
+    <div><b>Loose electrodes</b>A pinned or flat signal is flagged, not turned into a number.</div>
+    <div><b>Campus Wi-Fi</b>Device isolation blocked the link, so data runs over USB.</div>
+    <div><b>No resistor</b>The FSR floats without one, so it works as a contact switch for now.</div>
+  </div>
+  <div class="foot"><span>CLYF</span><span>06</span></div>
+</section>
+
+<!-- 7 · Impact -->
+<section class="slide">
+  <div class="eyebrow">Impact</div>
+  <h2>Turn a feeling<br>into a number.</h2>
+  <div class="split">
+    <div class="list">
+      <div><span class="n">→</span><div><h3>Climbers</h3><p>Rest exactly as long as you need on a project, and see effort across a session.</p></div></div>
+      <div><span class="n">→</span><div><h3>Gyms and coaches</h3><p>Objective grip load per attempt instead of “how pumped were you?”</p></div></div>
+      <div><span class="n">→</span><div><h3>Beyond climbing</h3><p>Any grip-heavy activity where recovery decides performance.</p></div></div>
+    </div>
+    <img class="art" src="assets/ready.jpg" alt="" style="object-position:72% 40%">
+  </div>
+  <div class="foot"><span>CLYF</span><span>07</span></div>
+</section>
+
+<!-- 8 · Future -->
+<section class="slide">
+  <div class="eyebrow">What's next</div>
+  <h2>Eyes on the wall,<br><span class="mint">not on a screen.</span></h2>
+  <div class="split">
+    <div class="list">
+      <div><span class="n">1</span><div><h3>Ready on the wrist</h3><p>A haptic tap from the watch when you're recovered. The Bluetooth link is already built.</p></div></div>
+      <div><span class="n">2</span><div><h3>Fatigue you can see</h3><p>Track the raw EMG's frequency shift, a known marker of muscle fatigue.</p></div></div>
+      <div><span class="n">3</span><div><h3>Fitted to you</h3><p>Learn each climber's own drain and recovery rates from their sessions.</p></div></div>
+      <div><span class="n">4</span><div><h3>Wireless sleeve</h3><p>Smaller board, battery power, and a cleaner fit.</p></div></div>
+    </div>
+    <img class="art" src="assets/explain.jpg" alt="" style="object-position:75% 30%">
+  </div>
+  <div class="foot"><span>CLYF</span><span>08</span></div>
+</section>
+
+<!-- 9 · Thanks -->
+<section class="slide">
+  <div class="thanks">
+    <div>
+      <div class="eyebrow">Thank you</div>
+      <div class="big-name">CLYF</div>
+      <p class="tagline" style="margin:30px auto 0;max-width:none">Know when to <span class="mint">climb again.</span></p>
+      <p class="lede" style="margin:40px auto 0">Jeremy Li · BigRed//Hacks 2026</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Battery readings off the dashboard in the demo video, one per second (source seconds 17-52).
+  const READ = [83, 84, 85, 86, 80, 73, 69, 64, 61, 60, 59, 57, 53, 52, 54, 56, 58, 60, 62, 64, 66, 67, 69, 70, 72, 73, 75, 76, 77, 78, 79, 80, 81, 80, 74, 71];
+  const T0 = 17, svg = document.getElementById('timeline'), NS = 'http://www.w3.org/2000/svg';
+  const W = 1200, H = 600, L = 90, R = 20, T = 40, B = 70;
+  const x = s => L + (s - T0) / (READ.length - 1) * (W - L - R), y = v => T + (1 - (v - 40) / 60) * (H - T - B);
+  const el = (tag, a, txt) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); if (txt) e.textContent = txt; svg.appendChild(e); return e; };
+  el('rect', { x: x(20.3), y: T, width: x(28.6) - x(20.3), height: H - T - B, fill: 'rgba(255,181,71,.16)' });
+  el('rect', { x: x(29), y: T, width: x(47.8) - x(29), height: H - T - B, fill: 'rgba(79,216,255,.12)' });
+  el('rect', { x: x(50.4), y: T, width: x(52) - x(50.4), height: H - T - B, fill: 'rgba(255,181,71,.16)' });
+  for (const v of [40, 60, 80, 100]) {
+    el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: v === 80 ? '#5cffc7' : '#1e2a31', 'stroke-width': v === 80 ? 3 : 2, 'stroke-dasharray': v === 80 ? '10 8' : '' });
+    el('text', { x: L - 16, y: y(v) + 8, 'text-anchor': 'end', fill: '#8d9aa2', 'font-family': 'JetBrains Mono', 'font-size': 22 }, `${v}%`);
+  }
+  for (let s = 20; s <= 50; s += 10) el('text', { x: x(s), y: H - B + 40, 'text-anchor': 'middle', fill: '#8d9aa2', 'font-family': 'JetBrains Mono', 'font-size': 22 }, `${s} s`);
+  const pts = READ.map((v, i) => `${x(T0 + i).toFixed(1)},${y(v).toFixed(1)}`);
+  el('path', { d: `M${x(T0)},${y(40)} L${pts.join(' L')} L${x(T0 + READ.length - 1)},${y(40)} Z`, fill: 'rgba(92,255,199,.08)' });
+  el('polyline', { points: pts.join(' '), fill: 'none', stroke: '#eef3f5', 'stroke-width': 5, 'stroke-linejoin': 'round' });
+  READ.forEach((v, i) => el('circle', { cx: x(T0 + i), cy: y(v), r: 6, fill: v >= 80 ? '#5cffc7' : '#ffb547' }));
+  const note = (s, v, txt, color, dy) => { el('text', { x: x(s), y: y(v) + dy, 'text-anchor': 'middle', fill: color, 'font-family': 'Commissioner', 'font-weight': 700, 'font-size': 30 }, txt); };
+  note(24.5, 86, 'Grip: 86 → 52 in 10 s', '#ffb547', -40);
+  note(38.5, 81, 'Rest: back to 80 in 18 s', '#4fd8ff', -40);
+  note(49, 81, 'READY', '#5cffc7', -34);
+</script>
+</body>
+</html>

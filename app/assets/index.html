@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLYF Sleeve</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">CLYF<span>FOREARM BATTERY</span></div>
+    <nav class="tabs"><button id="tab-stage" class="tab on" type="button">Stage</button><button id="tab-signals" class="tab" type="button">Signals</button></nav>
+    <div class="status"><span id="link" class="pill wait">Connecting…</span><span id="rate" class="pill">— Hz</span><span id="missing" class="pill">Missing —</span></div>
+  </header>
+
+  <main id="stage-view">
+    <div id="sim-banner" class="sim-banner" hidden>SIMULATED · hold <kbd>Space</kbd> or the button to grip · not sensor data</div>
+    <p id="health" class="warn" hidden></p>
+
+    <section class="stage">
+      <div class="battery-wrap">
+        <div id="battery" class="battery">
+          <div class="battery-body">
+            <div id="battery-fill" class="battery-fill"></div>
+            <div class="battery-label"><strong id="reserve">—</strong><span>%</span></div>
+            <svg id="bolt" class="bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+          </div>
+          <div class="battery-cap"></div>
+        </div>
+        <p class="caption">Estimated forearm reserve · model, not a measurement</p>
+      </div>
+      <div class="readout-panel">
+        <div id="chip" class="chip idle">Waiting</div>
+        <h1 id="headline">—</h1>
+        <p id="subline" class="muted"></p>
+        <div class="source"><span>Load from</span><b id="source">—</b>
+          <select id="mode" aria-label="Load source">
+            <option value="auto">Auto</option><option value="emg">EMG only</option><option value="fsr">FSR contact only</option><option value="sim">Simulated</option>
+          </select>
+        </div>
+        <button id="sim-grip" class="grip-btn" type="button" hidden>Hold to grip</button>
+      </div>
+    </section>
+
+    <section class="card history">
+      <div class="head"><h2>Last 2 minutes</h2><span class="muted legend"><i class="key wall"></i> on the wall <i class="key ready"></i> ready line (80%)</span></div>
+      <canvas id="history"></canvas>
+    </section>
+
+    <section class="stats">
+      <div><span>Grips</span><b id="st-grips">0</b></div>
+      <div><span>Time on the wall</span><b id="st-wall">0 s</b></div>
+      <div><span>Longest grip</span><b id="st-longest">—</b></div>
+      <div><span>Last recovery to ready</span><b id="st-recovery">—</b></div>
+    </section>
+  </main>
+
+  <main id="signals-view" hidden>
+    <section class="card" id="fsr-card">
+      <div class="head">
+        <div><h2>Pressure · FSR</h2><p class="sub">A2 (3.3 V out) — FSR — A1 — 47 kΩ — GND</p></div>
+        <div id="contact" class="contact off">Released</div>
+      </div>
+      <div class="readout"><strong id="fsr-v">—</strong><span>V</span><em id="fsr-pct"></em></div>
+      <canvas id="fsr-chart"></canvas>
+      <div class="controls">
+        <label>Contact threshold <input id="threshold" type="range" min="0.1" max="3.0" step="0.05"> <b id="threshold-v"></b></label>
+        <span class="muted">Current grip <b id="hold">—</b> · Grips <b id="holds">0</b></span>
+        <label><input id="fsr-on" type="checkbox"> Use FSR for contact</label>
+      </div>
+      <p id="fsr-warn" class="warn" hidden></p>
+      <p class="muted small">Without the resistor, A1 floats when the FSR is released or unplugged and drifts toward its neighbours. Untick “Use FSR” when it is not connected.</p>
+    </section>
+
+    <section class="card" id="emg-card">
+      <div class="head">
+        <div><h2>Muscle · sEMG envelope</h2><p class="sub">A0 · MyoWare ENV, VIN on 3.3V</p></div>
+        <div id="mvc" class="mvc">Not calibrated</div>
+      </div>
+      <div class="readout"><strong id="emg-v">—</strong><span>V</span><em id="emg-pct"></em></div>
+      <canvas id="emg-chart"></canvas>
+      <div class="controls">
+        <button id="cal-rest" type="button">① Relax 3 s (baseline)</button>
+        <button id="cal-max" type="button">② Max grip 3 s</button>
+        <button id="cal-auto" type="button">Use auto</button>
+        <span id="cal-msg" class="muted"></span>
+      </div>
+      <p id="emg-warn" class="warn" hidden></p>
+      <p class="muted small">%MVC places the envelope between your relaxed level and your hardest grip. Without manual calibration it calibrates itself: relaxed = a low second in the last 30 s, max = your hardest second (its average) in the last 3 min. It is a relative level, not a force.</p>
+    </section>
+
+    <section class="card">
+      <div class="head"><h2>Model</h2></div>
+      <div class="controls">
+        <label>“On the wall” above <input id="active-pct" type="range" min="10" max="80" step="5"> <b id="active-pct-v"></b></label>
+        <span class="muted">EMG source only; leaves at 60% of this.</span>
+      </div>
+      <div class="tuning">
+        <label>Sustainable load <input id="critical" type="number" min="5" max="80" step="5"> % MVC</label>
+        <label>Reserve capacity <input id="capacity" type="number" min="100" max="5000" step="50"> %MVC·s</label>
+        <label>Recovery time constant <input id="tau" type="number" min="5" max="120" step="1"> s</label>
+        <label>Assumed load for FSR-only / simulated grips <input id="assumed" type="number" min="10" max="100" step="5"> % MVC</label>
+      </div>
+      <p class="muted small">Above the sustainable load the reserve drains in proportion to the excess; below it, it refills exponentially. “Ready” at 80%. This is the W′-balance idea from endurance sport with demo defaults, not parameters fitted to you.</p>
+    </section>
+
+    <section class="card record">
+      <button id="record" type="button">● Start recording</button>
+      <span id="record-msg" class="muted">Records raw ADC readings (seq, MCU ms, FSR, EMG); stop to download a CSV.</span>
+    </section>
+  </main>
+  <script src="libs/socket.io.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
