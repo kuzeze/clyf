@@ -90,10 +90,7 @@ flowchart LR
 4. **Navigate.** The dashboard smooths the envelope, calibrates itself, refuses to trust a broken signal,
    and runs the battery.
 
-<details>
-<summary><b>🧮 The battery model (with the maths)</b></summary>
-
-<br>
+## 🧮 The battery model
 
 Effort is the EMG envelope placed between your relaxed level and your hardest grip, as a percentage of
 maximum voluntary contraction (%MVC). Both ends calibrate themselves: *relaxed* is the 10th percentile of
@@ -103,24 +100,24 @@ The load $L$ is that effort smoothed with a 0.4 s time constant.
 The battery $B$ is borrowed from the **W′-balance** model in endurance sport. Above a critical load it
 drains in proportion to the excess:
 
-$$
+```math
 \frac{dB}{dt} = -\frac{L - L_c}{W'} \qquad (L > L_c)
-$$
+```
 
 Below it, it refills exponentially, at a speed set by how relaxed the forearm really is:
 
-$$
+```math
 \frac{dB}{dt} = \frac{s}{\tau}(1 - B) \qquad (L \le L_c)
-$$
+```
 
 where $s = \min\left(1, \max\left(0, \frac{L_c - L}{L_c - 10}\right)\right)$ is full speed when the forearm is under 10 %MVC
 and slows to zero as it approaches $L_c$.
 
 That makes the ETA a closed form:
 
-$$
+```math
 t_{\text{ready}} = \frac{\tau}{s} \ln\frac{1 - B}{1 - 0.8}
-$$
+```
 
 | Constant | Default | Meaning |
 | --- | --- | --- |
@@ -133,8 +130,6 @@ Sanity check against the session above: from 52 %, $20 \cdot \ln(0.48/0.2) \appr
 dashboard took 18.
 
 These are demo constants, not fitted to anyone. That's why the battery is labelled an estimate.
-
-</details>
 
 <details>
 <summary><b>🩺 Measured vs. estimated, and how the dashboard stays honest</b></summary>
