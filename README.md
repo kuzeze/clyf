@@ -103,18 +103,24 @@ The load $L$ is that effort smoothed with a 0.4 s time constant.
 The battery $B$ is borrowed from the **W′-balance** model in endurance sport. Above a critical load it
 drains in proportion to the excess:
 
-$$\frac{dB}{dt} = -\frac{L - L_c}{W'} \qquad (L > L_c)$$
+$$
+\frac{dB}{dt} = -\frac{L - L_c}{W'} \qquad (L > L_c)
+$$
 
 Below it, it refills exponentially, at a speed set by how relaxed the forearm really is:
 
-$$\frac{dB}{dt} = \frac{s}{\tau}(1 - B) \qquad (L \le L_c)$$
+$$
+\frac{dB}{dt} = \frac{s}{\tau}(1 - B) \qquad (L \le L_c)
+$$
 
 where $s = \min\left(1, \max\left(0, \frac{L_c - L}{L_c - 10}\right)\right)$ is full speed when the forearm is under 10 %MVC
 and slows to zero as it approaches $L_c$.
 
 That makes the ETA a closed form:
 
-$$t_{\text{ready}} = \frac{\tau}{s} \ln\frac{1 - B}{1 - 0.8}$$
+$$
+t_{\text{ready}} = \frac{\tau}{s} \ln\frac{1 - B}{1 - 0.8}
+$$
 
 | Constant | Default | Meaning |
 | --- | --- | --- |
