@@ -20,7 +20,7 @@ sat-nav ETA, **when your forearms are ready to climb again.**
 <img src="https://img.shields.io/badge/three.js-000000?style=flat-square&logo=threedotjs&logoColor=white" alt="three.js">
 <img src="https://img.shields.io/badge/license-MIT-8D9AA2?style=flat-square" alt="MIT license">
 
-**[▶ Watch the 60 s promo](media/clyf-promo-720p.mp4)** &nbsp;·&nbsp;
+**[▶ 60 s promo (MP4, 6 MB)](https://github.com/kuzeze/clyf/raw/main/media/clyf-promo-720p.mp4)** &nbsp;·&nbsp;
 **[🌐 Project site](https://clyf-sleeve.vercel.app)** &nbsp;·&nbsp;
 **[🗂 Slides (PDF)](deck/CLYF-deck.pdf)** &nbsp;·&nbsp;
 **[📝 Devpost write-up](SUBMISSION.md)**
