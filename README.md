@@ -76,11 +76,9 @@ battery on top is a model, and the screen says so.
 
 ```mermaid
 flowchart LR
-    A["💪 Forearm flexors<br/>MyoWare 2.0 sEMG"] -- "ENV → A0" --> C
-    B["✋ FSR on the hold"] -- "A1" --> C
-    C["Arduino UNO Q · STM32<br/>100 Hz · 12-bit ADC"] -- "Bridge RPC" --> D["UNO Q · Linux side<br/>Python"]
-    D -- "Socket.IO over USB<br/>(adb forward)" --> E["Browser dashboard<br/>%MVC · signal check · battery model"]
-    E --> F(["🔋 Ready in 12 s"])
+    S["💪 Sleeve<br/>sEMG + FSR"] -- "A0 · A1" --> M["UNO Q · STM32<br/>100 Hz"]
+    M -- "Bridge" --> L["UNO Q · Linux<br/>Python"]
+    L -- "USB" --> D(["🔋 Ready in 12 s"])
 ```
 
 1. **Sense.** Three electrodes on the finger flexors, the muscles that close your hand on a hold, feed a
@@ -105,21 +103,18 @@ The load $L$ is that effort smoothed with a 0.4 s time constant.
 The battery $B$ is borrowed from the **W′-balance** model in endurance sport. Above a critical load it
 drains in proportion to the excess:
 
-```math
-\frac{dB}{dt} = -\frac{L - L_c}{W'} \qquad (L > L_c)
-```
+$$\frac{dB}{dt} = -\frac{L - L_c}{W'} \qquad (L > L_c)$$
 
 Below it, it refills exponentially, at a speed set by how relaxed the forearm really is:
 
-```math
-\frac{dB}{dt} = \frac{s}{\tau}\,(1 - B), \qquad s = \operatorname{clip}\!\left(\frac{L_c - L}{L_c - 10},\ 0,\ 1\right) \qquad (L \le L_c)
-```
+$$\frac{dB}{dt} = \frac{s}{\tau}(1 - B) \qquad (L \le L_c)$$
+
+where $s = \min\left(1, \max\left(0, \frac{L_c - L}{L_c - 10}\right)\right)$ is full speed when the forearm is under 10 %MVC
+and slows to zero as it approaches $L_c$.
 
 That makes the ETA a closed form:
 
-```math
-t_{\text{ready}} = \frac{\tau}{s}\,\ln\frac{1 - B}{1 - 0.8}
-```
+$$t_{\text{ready}} = \frac{\tau}{s} \ln\frac{1 - B}{1 - 0.8}$$
 
 | Constant | Default | Meaning |
 | --- | --- | --- |
@@ -153,7 +148,7 @@ These are demo constants, not fitted to anyone. That's why the battery is labell
 
 ## 😤 Things that fought back
 
-| | |
+| Problem | What happened |
 | --- | --- |
 | **A flat 3 V "muscle"** | The first sessions read nothing but the ceiling. The reference electrode wasn't on bone and the gain was too high. Placement and skin prep mattered more than any code. |
 | **A spiky envelope** | Mid-squeeze the signal leaps between 0.1 V and 3 V within a second, so calibrating from peaks made real grips read 30–40 %. Replaying recordings offline, per-second averages and longer smoothing fixed it. |
@@ -195,9 +190,8 @@ along the muscle, black (REF) on bone: the bump of the wrist on the little-finge
 open http://localhost:7700
 ```
 
-> [!WARNING]
-> While electrodes are on skin, the laptop connected over USB must run **on battery**, with the
-> charger unplugged. Keep all three electrodes on one forearm.
+> ⚠️ **Safety:** while electrodes are on skin, the laptop connected over USB must run **on battery**,
+> with the charger unplugged. Keep all three electrodes on one forearm.
 
 </details>
 
